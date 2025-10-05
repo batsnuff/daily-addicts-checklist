@@ -1,0 +1,25 @@
+/* Additional custom styles for Daily Addicts Checklist */
+.warehouse-theme {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d1b69 50%, #000000 100%);
+  color: #00ff88;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.glow-effect {
+  text-shadow: 0 0 10px #00ff88, 0 0 20px #00ff88, 0 0 30px #00ff88;
+}
+
+.warehouse-border {
+  border: 2px solid #00ff88;
+  box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
+}
+
+.point-animation {
+  animation: pointGain 0.5s ease-out;
+}
+
+@keyframes pointGain {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); color: #00ff88; }
+  100% { transform: scale(1); }
+}

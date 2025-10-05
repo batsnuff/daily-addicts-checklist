@@ -50,6 +50,31 @@ A Progressive Web App (PWA) for tracking daily routines and creative activities 
    npm run build
    ```
 
+## Deployment
+
+### GitHub Pages (Automatic)
+
+The app is automatically deployed to GitHub Pages using GitHub Actions:
+
+1. **Enable GitHub Pages**: Go to repository Settings → Pages → Source: "GitHub Actions"
+2. **Push to main branch**: Any push to `main` or `master` branch triggers automatic deployment
+3. **Access your app**: Available at `https://yourusername.github.io/daily-addicts'checklist`
+
+### Manual Deployment
+
+1. Build the project:
+   ```bash
+   npm run build
+   ```
+2. Deploy the `build` folder to your hosting service
+
+### GitHub Actions Workflow
+
+The `.github/workflows/deploy.yml` file contains the deployment configuration:
+- Builds the React app
+- Deploys to GitHub Pages on push to main/master
+- Uses `peaceiris/actions-gh-pages` for deployment
+
 ## Usage
 
 ### Daily Workflow

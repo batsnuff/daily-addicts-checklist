@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import './App.css';
-import { CheckCircle2, Circle, Calendar, TrendingUp, Zap, BarChart3, FileText, Settings, Download, RotateCcw } from 'lucide-react';
+import { Calendar, TrendingUp, BarChart3, FileText, Download, RotateCcw } from 'lucide-react';
 import RunningTracker from './components/RunningTracker';
 import MorningRoutines from './components/MorningRoutines';
 import OffToWork from './components/OffToWork';
 import WeekdaysMadness from './components/WeekdaysMadness';
-import PassionsPills from './components/PassionsPills';
 import EveningRoutines from './components/EveningRoutines';
 import BatsnackSystem from './components/BatsnackSystem';
 import AutomaticPenalties from './components/AutomaticPenalties';
@@ -17,7 +16,7 @@ import StatisticsTab from './components/StatisticsTab';
 import WeeklyExport from './components/WeeklyExport';
 import CalendarSync from './components/CalendarSync';
 import PWAInstallPrompt from './components/PWAInstallPrompt';
-import { Task, BatsnackPoint, DailyData } from './types';
+import { Task, DailyData } from './types';
 import { saveDailyData, loadDailyData, getCurrentDate } from './utils/storage';
 
 const App: React.FC = () => {
@@ -28,11 +27,6 @@ const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [weeklySchedule, setWeeklySchedule] = useState<any>(null);
 
-  useEffect(() => {
-    loadInitialData();
-    loadWeeklySchedule();
-  }, []);
-
   const loadWeeklySchedule = () => {
     const saved = localStorage.getItem('weekly_schedule');
     if (saved) {
@@ -40,7 +34,7 @@ const App: React.FC = () => {
     }
   };
 
-  const loadInitialData = async () => {
+  const loadInitialData = useCallback(async () => {
     try {
       const today = getCurrentDate();
       const savedData = await loadDailyData(today);
@@ -58,7 +52,12 @@ const App: React.FC = () => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    loadInitialData();
+    loadWeeklySchedule();
+  }, [loadInitialData]);
 
   const initializeDefaultTasks = () => {
     const defaultTasks: Task[] = [

@@ -30,18 +30,6 @@ const WeeklySchedule: React.FC<WeeklyScheduleProps> = ({ schedule, onTaskComplet
     onTaskComplete(day, newCompleted.has(day));
   };
 
-  const getDayColor = (day: string) => {
-    const colors = {
-      monday: 'from-blue-500 to-blue-700',
-      tuesday: 'from-green-500 to-green-700',
-      wednesday: 'from-purple-500 to-purple-700',
-      thursday: 'from-yellow-500 to-yellow-700',
-      friday: 'from-pink-500 to-pink-700',
-      saturday: 'from-orange-500 to-orange-700',
-      sunday: 'from-red-500 to-red-700'
-    };
-    return colors[day as keyof typeof colors] || 'from-gray-500 to-gray-700';
-  };
 
   const getDayName = (day: string) => {
     const names = {

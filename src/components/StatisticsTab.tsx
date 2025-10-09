@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { BarChart3, TrendingUp, Calendar, Award, Zap, Target, Clock, Trophy, TrendingDown, DollarSign } from 'lucide-react';
+import { BarChart3, TrendingUp, Calendar, Award, Trophy, DollarSign } from 'lucide-react';
 import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line, AreaChart, Area } from 'recharts';
 import { Statistics } from '../types';
 import { calculateStatistics } from '../utils/storage';

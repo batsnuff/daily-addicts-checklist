@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Clock, AlertTriangle, Zap } from 'lucide-react';
 import { Task } from '../types';
@@ -9,45 +9,9 @@ interface AutomaticPenaltiesProps {
 }
 
 const AutomaticPenalties: React.FC<AutomaticPenaltiesProps> = ({ tasks, onAddPoints }) => {
-  const [lastPenaltyCheck, setLastPenaltyCheck] = useState<Date | null>(null);
-  const [penaltiesApplied, setPenaltiesApplied] = useState<boolean>(false);
   const [showNotification, setShowNotification] = useState<boolean>(false);
 
-  // Sprawdź czy jest 23:30 i czy nie zostały już zastosowane kary
-  useEffect(() => {
-    const checkPenalties = () => {
-      const now = new Date();
-      const currentTime = now.getHours() * 60 + now.getMinutes();
-      const penaltyTime = 23 * 60 + 30; // 23:30
-
-      // Sprawdź czy jest 23:30 lub później
-      if (currentTime >= penaltyTime) {
-        const today = now.toISOString().split('T')[0];
-        const lastCheck = localStorage.getItem(`penalty_check_${today}`);
-        
-        if (!lastCheck) {
-          applyEveningPenalties();
-          localStorage.setItem(`penalty_check_${today}`, now.toISOString());
-          setLastPenaltyCheck(now);
-          setPenaltiesApplied(true);
-          setShowNotification(true);
-          
-          // Ukryj powiadomienie po 5 sekundach
-          setTimeout(() => setShowNotification(false), 5000);
-        }
-      }
-    };
-
-    // Sprawdź co minutę
-    const interval = setInterval(checkPenalties, 60000);
-    
-    // Sprawdź od razu
-    checkPenalties();
-
-    return () => clearInterval(interval);
-  }, [tasks]);
-
-  const applyEveningPenalties = () => {
+  const applyEveningPenalties = useCallback(() => {
     const eveningTasks = tasks.filter(task => task.category === 'evening');
     let totalPenalty = 0;
     const penalties: string[] = [];
@@ -86,7 +50,39 @@ const AutomaticPenalties: React.FC<AutomaticPenaltiesProps> = ({ tasks, onAddPoi
       };
       localStorage.setItem(`penalties_${new Date().toISOString().split('T')[0]}`, JSON.stringify(penaltyData));
     }
-  };
+  }, [tasks, onAddPoints]);
+
+  // Sprawdź czy jest 23:30 i czy nie zostały już zastosowane kary
+  useEffect(() => {
+    const checkPenalties = () => {
+      const now = new Date();
+      const currentTime = now.getHours() * 60 + now.getMinutes();
+      const penaltyTime = 23 * 60 + 30; // 23:30
+
+      // Sprawdź czy jest 23:30 lub później
+      if (currentTime >= penaltyTime) {
+        const today = now.toISOString().split('T')[0];
+        const lastCheck = localStorage.getItem(`penalty_check_${today}`);
+        
+        if (!lastCheck) {
+          applyEveningPenalties();
+          localStorage.setItem(`penalty_check_${today}`, now.toISOString());
+          setShowNotification(true);
+          
+          // Ukryj powiadomienie po 5 sekundach
+          setTimeout(() => setShowNotification(false), 5000);
+        }
+      }
+    };
+
+    // Sprawdź co minutę
+    const interval = setInterval(checkPenalties, 60000);
+    
+    // Sprawdź od razu
+    checkPenalties();
+
+    return () => clearInterval(interval);
+  }, [tasks, applyEveningPenalties]);
 
   const getPenaltyStatus = () => {
     const today = new Date().toISOString().split('T')[0];

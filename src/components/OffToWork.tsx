@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { X, CheckCircle2 } from 'lucide-react';
+import { X } from 'lucide-react';
 
 const OffToWork: React.FC = () => {
   const [currentTime, setCurrentTime] = useState(new Date());

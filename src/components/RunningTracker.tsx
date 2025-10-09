@@ -26,8 +26,7 @@ interface RunningTrackerProps {
 }
 
 const RunningTracker: React.FC<RunningTrackerProps> = ({ onAddPoints }) => {
-  const todaySchedule = getTodaySchedule();
-  const [targetDistance, setTargetDistance] = useState(todaySchedule.distanceValue);
+  const [targetDistance, setTargetDistance] = useState(getTodaySchedule().distanceValue);
   const [currentDistance, setCurrentDistance] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
@@ -38,8 +37,8 @@ const RunningTracker: React.FC<RunningTrackerProps> = ({ onAddPoints }) => {
 
   // Update target distance when day changes
   useEffect(() => {
-    setTargetDistance(todaySchedule.distanceValue);
-  }, [todaySchedule.distanceValue]);
+    setTargetDistance(getTodaySchedule().distanceValue);
+  }, []);
 
   // Load saved running state
   useEffect(() => {
@@ -48,11 +47,11 @@ const RunningTracker: React.FC<RunningTrackerProps> = ({ onAddPoints }) => {
       const { currentDistance, isCompleted, targetDistance: savedTarget } = JSON.parse(savedState);
       setCurrentDistance(currentDistance || 0);
       setIsCompleted(isCompleted || false);
-      if (savedTarget && savedTarget === todaySchedule.distanceValue) {
+      if (savedTarget && savedTarget === getTodaySchedule().distanceValue) {
         setTargetDistance(savedTarget);
       }
     }
-  }, [todaySchedule.distanceValue]);
+  }, []);
 
   // Save running state
   useEffect(() => {
@@ -104,7 +103,7 @@ const RunningTracker: React.FC<RunningTrackerProps> = ({ onAddPoints }) => {
     setIsRunning(false);
     setIsCompleted(false);
     setShowBonus(false);
-    setTargetDistance(todaySchedule.distanceValue);
+    setTargetDistance(getTodaySchedule().distanceValue);
     localStorage.removeItem('running_state');
   };
 
@@ -148,7 +147,6 @@ const RunningTracker: React.FC<RunningTrackerProps> = ({ onAddPoints }) => {
           ].map((schedule, index) => {
             const today = new Date().getDay();
             const isToday = (index + 1) % 7 === today;
-            const todaySchedule = getTodaySchedule();
             
             return (
               <motion.div

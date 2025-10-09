@@ -3,7 +3,6 @@ import { DailyData, WeeklyData, Statistics } from '../types';
 const STORAGE_PREFIX = 'daily_addicts_';
 const DAILY_DATA_KEY = 'daily_data';
 const WEEKLY_DATA_KEY = 'weekly_data';
-const STATISTICS_KEY = 'statistics';
 
 export const getCurrentDate = (): string => {
   return new Date().toISOString().split('T')[0];

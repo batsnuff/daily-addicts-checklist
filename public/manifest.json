@@ -11,17 +11,50 @@
     {
       "src": "logo192.png",
       "type": "image/png",
-      "sizes": "192x192"
+      "sizes": "192x192",
+      "purpose": "any maskable"
     },
     {
       "src": "logo512.png",
       "type": "image/png",
-      "sizes": "512x512"
+      "sizes": "512x512",
+      "purpose": "any maskable"
     }
   ],
-  "start_url": ".",
+  "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "theme_color": "#00ff88",
   "background_color": "#1a1a1a",
-  "orientation": "portrait-primary"
+  "orientation": "any",
+  "categories": ["productivity", "lifestyle", "utilities"],
+  "lang": "pl",
+  "dir": "ltr",
+  "prefer_related_applications": false,
+  "shortcuts": [
+    {
+      "name": "Dzisiaj",
+      "short_name": "Dzisiaj",
+      "description": "Otwórz dzisiejsze zadania",
+      "url": "/?view=today",
+      "icons": [
+        {
+          "src": "favicon.ico",
+          "sizes": "64x64"
+        }
+      ]
+    },
+    {
+      "name": "Statystyki",
+      "short_name": "Statystyki", 
+      "description": "Otwórz statystyki",
+      "url": "/?view=statistics",
+      "icons": [
+        {
+          "src": "favicon.ico",
+          "sizes": "64x64"
+        }
+      ]
+    }
+  ]
 }

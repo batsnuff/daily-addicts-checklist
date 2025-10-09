@@ -16,6 +16,7 @@ import NotesTab from './components/NotesTab';
 import StatisticsTab from './components/StatisticsTab';
 import WeeklyExport from './components/WeeklyExport';
 import CalendarSync from './components/CalendarSync';
+import PWAInstallPrompt from './components/PWAInstallPrompt';
 import { Task, BatsnackPoint, DailyData } from './types';
 import { saveDailyData, loadDailyData, getCurrentDate } from './utils/storage';
 
@@ -205,7 +206,7 @@ const App: React.FC = () => {
           </p>
           
           {/* Stats Bar */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto mb-6 px-4">
+          <div className="responsive-grid max-w-3xl mx-auto mb-6 px-4">
             <div className="card">
               <div className="text-3xl font-bold text-white">{stats.completed}/{stats.total}</div>
               <div className="text-sm text-green-100">Ukończone dzisiaj</div>
@@ -223,74 +224,78 @@ const App: React.FC = () => {
 
         {/* Navigation */}
         <div className="mb-8 px-4">
-          <div className="flex gap-2 mb-4 justify-center flex-wrap">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 justify-center">
             <button
               onClick={() => setCurrentView('today')}
-              className={`px-4 py-2 rounded-lg font-bold transition-all text-sm ${
+              className={`px-2 sm:px-4 py-2 rounded-lg font-bold transition-all text-xs sm:text-sm ${
                 currentView === 'today'
                   ? 'btn-primary'
                   : 'btn-secondary'
               }`}
             >
-              <Calendar className="inline mr-1" size={16} />
-              DZISIAJ
+              <Calendar className="inline mr-1" size={14} />
+              <span className="hidden sm:inline">DZISIAJ</span>
+              <span className="sm:hidden">DZIS</span>
             </button>
             <button
               onClick={() => setCurrentView('week')}
-              className={`px-4 py-2 rounded-lg font-bold transition-all text-sm ${
+              className={`px-2 sm:px-4 py-2 rounded-lg font-bold transition-all text-xs sm:text-sm ${
                 currentView === 'week'
                   ? 'btn-primary'
                   : 'btn-secondary'
               }`}
             >
-              <TrendingUp className="inline mr-1" size={16} />
-              TYDZIEŃ
+              <TrendingUp className="inline mr-1" size={14} />
+              <span className="hidden sm:inline">TYDZIEŃ</span>
+              <span className="sm:hidden">TYDZ</span>
             </button>
             <button
               onClick={() => setCurrentView('notes')}
-              className={`px-4 py-2 rounded-lg font-bold transition-all text-sm ${
+              className={`px-2 sm:px-4 py-2 rounded-lg font-bold transition-all text-xs sm:text-sm ${
                 currentView === 'notes'
                   ? 'btn-primary'
                   : 'btn-secondary'
               }`}
             >
-              <FileText className="inline mr-1" size={16} />
-              NOTATKI
+              <FileText className="inline mr-1" size={14} />
+              <span className="hidden sm:inline">NOTATKI</span>
+              <span className="sm:hidden">NOT</span>
             </button>
-          </div>
-          <div className="flex gap-2 justify-center flex-wrap">
             <button
               onClick={() => setCurrentView('statistics')}
-              className={`px-4 py-2 rounded-lg font-bold transition-all text-sm ${
+              className={`px-2 sm:px-4 py-2 rounded-lg font-bold transition-all text-xs sm:text-sm ${
                 currentView === 'statistics'
                   ? 'btn-primary'
                   : 'btn-secondary'
               }`}
             >
-              <BarChart3 className="inline mr-1" size={16} />
-              STATYSTYKI
+              <BarChart3 className="inline mr-1" size={14} />
+              <span className="hidden sm:inline">STATYSTYKI</span>
+              <span className="sm:hidden">STAT</span>
             </button>
             <button
               onClick={() => setCurrentView('export')}
-              className={`px-4 py-2 rounded-lg font-bold transition-all text-sm ${
+              className={`px-2 sm:px-4 py-2 rounded-lg font-bold transition-all text-xs sm:text-sm ${
                 currentView === 'export'
                   ? 'btn-primary'
                   : 'btn-secondary'
               }`}
             >
-              <Download className="inline mr-1" size={16} />
-              EKSPORT
+              <Download className="inline mr-1" size={14} />
+              <span className="hidden sm:inline">EKSPORT</span>
+              <span className="sm:hidden">EXP</span>
             </button>
             <button
               onClick={() => setCurrentView('calendar')}
-              className={`px-4 py-2 rounded-lg font-bold transition-all text-sm ${
+              className={`px-2 sm:px-4 py-2 rounded-lg font-bold transition-all text-xs sm:text-sm ${
                 currentView === 'calendar'
                   ? 'btn-primary'
                   : 'btn-secondary'
               }`}
             >
-              <RotateCcw className="inline mr-1" size={16} />
-              KALENDARZ
+              <RotateCcw className="inline mr-1" size={14} />
+              <span className="hidden sm:inline">KALENDARZ</span>
+              <span className="sm:hidden">KAL</span>
             </button>
           </div>
         </div>
@@ -431,6 +436,9 @@ const App: React.FC = () => {
           <p className="text-lg text-cyan-400">⚙️ Algorytm | Ciąg | Pewność ⚙️</p>
         </div>
       </div>
+
+      {/* PWA Install Prompt */}
+      <PWAInstallPrompt />
     </div>
   );
 };

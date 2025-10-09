@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Clock, Calendar } from 'lucide-react';
+import TodoList from './TodoList';
 
 const WeekdaysMadness: React.FC = () => {
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -149,6 +150,11 @@ const WeekdaysMadness: React.FC = () => {
         <div className="text-gray-400">
           Mode: <span className="text-cyan-400">PRODUCTIVE</span>
         </div>
+      </div>
+
+      {/* Todo List Section */}
+      <div className="mt-6">
+        <TodoList />
       </div>
     </motion.div>
   );

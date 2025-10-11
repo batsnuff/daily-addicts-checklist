@@ -22,9 +22,8 @@ jobs:
           
       - name: Install dependencies
         run: |
-          # Sync package-lock.json with package.json if needed
-          npm install --package-lock-only
-          npm ci
+          # Try npm ci first, if it fails, sync and try again
+          npm ci || (npm install && npm ci)
           
       - name: Run tests
         run: npm test -- --coverage --watchAll=false

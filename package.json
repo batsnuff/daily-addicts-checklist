@@ -21,9 +21,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "preinstall": "npm install --package-lock-only",
     "ci": "npm ci",
-    "sync-deps": "npm install --package-lock-only && npm ci"
+    "sync-deps": "npm install && npm ci"
   },
   "eslintConfig": {
     "extends": [

@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/daily-addicts-checklist/static/css/main.d7a8604c.css",
-    "main.js": "/daily-addicts-checklist/static/js/main.79eabb9e.js",
+    "main.css": "/daily-addicts-checklist/static/css/main.b9cff360.css",
+    "main.js": "/daily-addicts-checklist/static/js/main.e16870c2.js",
     "index.html": "/daily-addicts-checklist/index.html",
-    "main.d7a8604c.css.map": "/daily-addicts-checklist/static/css/main.d7a8604c.css.map",
-    "main.79eabb9e.js.map": "/daily-addicts-checklist/static/js/main.79eabb9e.js.map"
+    "main.b9cff360.css.map": "/daily-addicts-checklist/static/css/main.b9cff360.css.map",
+    "main.e16870c2.js.map": "/daily-addicts-checklist/static/js/main.e16870c2.js.map"
   },
   "entrypoints": [
-    "static/css/main.d7a8604c.css",
-    "static/js/main.79eabb9e.js"
+    "static/css/main.b9cff360.css",
+    "static/js/main.e16870c2.js"
   ]
 }

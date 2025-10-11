@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Clock, Calendar } from 'lucide-react';
-import TodoList from './TodoList';
 
 const WeekdaysMadness: React.FC = () => {
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -152,10 +151,6 @@ const WeekdaysMadness: React.FC = () => {
         </div>
       </div>
 
-      {/* Todo List Section */}
-      <div className="mt-6">
-        <TodoList />
-      </div>
     </motion.div>
   );
 };

@@ -7,13 +7,6 @@ export interface Task {
   note: string;
 }
 
-export interface BatsnackPoint {
-  id: string;
-  points: number;
-  description: string;
-  timestamp: Date;
-  category: 'running' | 'creative' | 'miloverse' | 'project' | 'completed';
-}
 
 export interface DailyData {
   date: string;
@@ -58,30 +51,3 @@ export interface Statistics {
   };
 }
 
-export interface PointStatistics {
-  earned: Array<{
-    source: string;
-    points: number;
-    color: string;
-  }>;
-  lost: Array<{
-    source: string;
-    points: number;
-    color: string;
-  }>;
-  weekly: Array<{
-    day: string;
-    earned: number;
-    lost: number;
-    net: number;
-  }>;
-}
-
-export interface RunningSession {
-  id: string;
-  distance: number;
-  targetDistance: number;
-  completed: boolean;
-  bonusPoints: number;
-  timestamp: Date;
-}

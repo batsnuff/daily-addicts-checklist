@@ -28,7 +28,10 @@ jobs:
           cache: 'npm'
           
       - name: Install dependencies
-        run: npm ci
+        run: |
+          # Sync package-lock.json with package.json if needed
+          npm install --package-lock-only
+          npm ci
         
       - name: Build
         run: npm run build

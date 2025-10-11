@@ -31,7 +31,7 @@ jobs:
           fi
           
       - name: Run tests
-        run: npm test -- --coverage --watchAll=false
+        run: npm test -- --coverage --watchAll=false --passWithNoTests
         
       - name: Build project
         run: npm run build

@@ -65,10 +65,10 @@ const WeeklySchedule: React.FC<WeeklyScheduleProps> = ({ schedule, onTaskComplet
     >
       <div className="text-center mb-6">
         <h2 className="text-3xl font-bold text-white mb-4 flex items-center justify-center gap-3">
-          <Calendar className="text-cyan-400" size={32} />
+          <Calendar className="text-blue-400" size={32} />
           HARMONOGRAM TYGODNIOWY
         </h2>
-        <p className="text-lg text-cyan-400 mb-2">
+        <p className="text-lg text-blue-400 mb-2">
           Ustalony plan kreatywny na bieżący tydzień
         </p>
         
@@ -76,13 +76,13 @@ const WeeklySchedule: React.FC<WeeklyScheduleProps> = ({ schedule, onTaskComplet
         <div className="mt-4">
           <div className="flex justify-between items-center mb-2">
             <span className="text-sm text-gray-300">Postęp tygodniowy</span>
-            <span className="text-sm text-cyan-400 font-bold">
+            <span className="text-sm text-blue-400 font-bold">
               {completedCount}/{totalDays} dni
             </span>
           </div>
           <div className="w-full bg-gray-700 rounded-full h-3">
             <motion.div
-              className="h-full bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full"
+              className="h-full bg-gradient-to-r from-blue-500 to-blue-500 rounded-full"
               initial={{ width: 0 }}
               animate={{ width: `${progressPercentage}%` }}
               transition={{ duration: 0.5 }}
@@ -105,7 +105,7 @@ const WeeklySchedule: React.FC<WeeklyScheduleProps> = ({ schedule, onTaskComplet
               whileHover={{ scale: 1.02 }}
               className={`p-4 rounded-lg border-2 transition-all cursor-pointer ${
                 isCurrentDay 
-                  ? 'border-cyan-400 shadow-lg shadow-cyan-400/50 bg-gradient-to-br from-cyan-500/20 to-cyan-700/20'
+                  ? 'border-blue-400 shadow-lg shadow-blue-400/50 bg-gradient-to-br from-blue-500/20 to-blue-700/20'
                   : 'border-white/20'
               } ${isCompleted ? 'opacity-60' : ''}`}
               onClick={() => handleDayToggle(day)}
@@ -122,7 +122,7 @@ const WeeklySchedule: React.FC<WeeklyScheduleProps> = ({ schedule, onTaskComplet
                   </span>
                 </div>
                 {isCurrentDay && (
-                  <span className="text-xs text-cyan-400 font-bold bg-cyan-400/20 px-2 py-1 rounded">
+                  <span className="text-xs text-blue-400 font-bold bg-blue-400/20 px-2 py-1 rounded">
                     DZISIAJ
                   </span>
                 )}
@@ -155,12 +155,12 @@ const WeeklySchedule: React.FC<WeeklyScheduleProps> = ({ schedule, onTaskComplet
       </div>
 
       {/* Summary */}
-      <div className="mt-6 p-4 bg-gradient-to-r from-cyan-900/30 to-blue-900/30 rounded-lg border border-cyan-500">
+      <div className="mt-6 p-4 bg-gradient-to-r from-blue-900/30 to-blue-900/30 rounded-lg border border-blue-500">
         <div className="text-center">
-          <div className="text-lg font-bold text-cyan-300 mb-2">
+          <div className="text-lg font-bold text-blue-300 mb-2">
             📊 PODSUMOWANIE TYGODNIA
           </div>
-          <div className="text-sm text-cyan-200">
+          <div className="text-sm text-blue-200">
             Ukończono {completedCount} z {totalDays} dni • {progressPercentage.toFixed(0)}% postępu
           </div>
         </div>

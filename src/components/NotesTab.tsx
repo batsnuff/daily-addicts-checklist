@@ -47,7 +47,7 @@ const NotesTab: React.FC<NotesTabProps> = ({ tasks, dailyData, onUpdateNote }) =
     >
       <div className="text-center mb-8">
         <h2 className="text-4xl font-bold text-white mb-4 flex items-center justify-center gap-3">
-          <FileText className="text-cyan-400" size={40} />
+          <FileText className="text-blue-400" size={40} />
           ZAKŁADKA NOTATEK
         </h2>
         <p className="text-lg text-gray-300">
@@ -141,16 +141,16 @@ const NotesTab: React.FC<NotesTabProps> = ({ tasks, dailyData, onUpdateNote }) =
             <div className="text-sm text-purple-300 mb-2">
               Specjalna notatka (max 666 znaków):
             </div>
-            <div className="text-gray-200">
-              {eveningReflection.note ? (
-                <div className="whitespace-pre-wrap">
-                  {eveningReflection.note}
-                </div>
-              ) : (
-                <div className="text-gray-400 italic">
-                  Brak notatki do wieczornej refleksji
-                </div>
-              )}
+            <textarea
+              value={eveningReflection.note}
+              onChange={(e) => onUpdateNote(eveningReflection.id, e.target.value)}
+              placeholder="Dodaj notatkę do wieczornej refleksji..."
+              className="w-full p-3 bg-black bg-opacity-20 border border-purple-400 rounded text-white placeholder-gray-400 focus:outline-none focus:border-purple-300 focus:ring-1 focus:ring-purple-300 resize-none"
+              rows={4}
+              maxLength={666}
+            />
+            <div className="text-xs text-purple-300 mt-1 text-right">
+              {eveningReflection.note.length}/666 znaków
             </div>
           </div>
         </motion.div>

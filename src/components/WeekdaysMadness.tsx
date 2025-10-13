@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Clock, Calendar } from 'lucide-react';
+import { Clock } from 'lucide-react';
 
 const WeekdaysMadness: React.FC = () => {
   const [currentTime, setCurrentTime] = useState(new Date());
   const [isGlowing, setIsGlowing] = useState(false);
+  const [isWorkDay, setIsWorkDay] = useState(false);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -22,6 +23,14 @@ const WeekdaysMadness: React.FC = () => {
       clearInterval(glowTimer);
     };
   }, []);
+
+  // Work day detection
+  useEffect(() => {
+    const now = new Date();
+    const dayOfWeek = now.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
+    
+    setIsWorkDay(dayOfWeek >= 1 && dayOfWeek <= 5); // Monday to Friday
+  }, [currentTime]);
 
   const formatTime = (date: Date) => {
     return date.toLocaleTimeString('pl-PL', {
@@ -69,25 +78,19 @@ const WeekdaysMadness: React.FC = () => {
       animate={{ opacity: 1, y: 0 }}
       className="card mb-6"
     >
-      <div className="text-center mb-6">
-        <h2 className="text-3xl font-bold text-white mb-4 flex items-center justify-center gap-3">
-          <Calendar className="text-cyan-400" size={32} />
-          WEEKDAYS MADNESS
-        </h2>
-      </div>
 
       {/* Digital Clock */}
-      <div className="bg-gradient-to-r from-gray-900 to-black rounded-lg p-6 border-2 border-cyan-400 shadow-lg">
+      <div className="bg-gradient-to-r from-gray-900 to-black rounded-lg p-6 border-2 border-blue-400 shadow-lg">
         <div className="text-center">
           {/* Time Display */}
           <motion.div
             animate={{ 
               scale: isGlowing ? 1.05 : 1,
               textShadow: isGlowing 
-                ? '0 0 20px #00ff88, 0 0 40px #00ff88' 
-                : '0 0 5px #00ff88'
+                ? '0 0 20px #477129, 0 0 40px #477129' 
+                : '0 0 5px #477129'
             }}
-            className="text-6xl font-mono font-bold text-cyan-400 mb-4"
+            className="text-6xl font-mono font-bold text-blue-400 mb-4"
             style={{ fontFamily: 'JetBrains Mono, monospace' }}
           >
             {formatTime(currentTime)}
@@ -109,17 +112,6 @@ const WeekdaysMadness: React.FC = () => {
             {getDayType()}
           </motion.div>
 
-          {/* Work Schedule */}
-          <div className="mt-6 p-4 bg-gradient-to-r from-yellow-900/30 to-orange-900/30 rounded-lg border border-yellow-500">
-            <div className="flex items-center justify-center gap-3 mb-2">
-              <Clock className="text-yellow-400" size={24} />
-              <span className="text-yellow-400 font-bold text-xl">8:20-18:30</span>
-            </div>
-            <div className="text-yellow-200 text-lg font-semibold">
-              OFF TO WORK
-            </div>
-          </div>
-
           {/* Animated Dots */}
           <div className="flex justify-center gap-2 mt-4">
             {[0, 1, 2].map((i) => (
@@ -134,7 +126,7 @@ const WeekdaysMadness: React.FC = () => {
                   repeat: Infinity,
                   delay: i * 0.2
                 }}
-                className="w-2 h-2 bg-cyan-400 rounded-full"
+                className="w-2 h-2 bg-blue-400 rounded-full"
               />
             ))}
           </div>
@@ -144,11 +136,70 @@ const WeekdaysMadness: React.FC = () => {
       {/* Status Bar */}
       <div className="mt-4 flex justify-between items-center text-sm">
         <div className="text-gray-400">
-          Status: <span className="text-green-400">ACTIVE</span>
+          Chaos: <span className="text-green-400">Kontrolowany</span>
         </div>
         <div className="text-gray-400">
-          Mode: <span className="text-cyan-400">PRODUCTIVE</span>
+          Tryb: <span className="text-blue-400">Nadaktywny</span>
         </div>
+      </div>
+
+      {/* Work/Weekend Status in Calendar */}
+      <div className="mt-6">
+        {isWorkDay ? (
+          <motion.div
+            className="p-4 rounded-lg border-2 shadow-lg bg-gradient-to-r from-red-500 to-blue-900 border-blue-700"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <div className="text-center">
+              <div className="flex items-center justify-center gap-3 mb-2">
+                <Clock className="text-yellow-400" size={24} />
+                <span className="text-yellow-400 font-bold text-xl">8:30-18:30</span>
+              </div>
+              
+              <div className="text-lg font-bold text-white">
+                offToWork
+              </div>
+            </div>
+          </motion.div>
+        ) : (
+          <motion.div
+            className="p-4 rounded-lg border-2 shadow-lg"
+            style={{
+              background: 'linear-gradient(to right, #3b82f680, #198541de)',
+              borderColor: '#198541de'
+            }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <div className="text-center">
+            
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                whileHover={{ 
+                  scale: 5.2,
+                  filter: "brightness(1.7) drop-shadow(0 0 8pxrgb(255, 64, 0)) drop-shadow(0 0 16px rgb(255, 64, 0))",
+                  transition: { duration: 0.43 }
+                }}
+                className=" text-green-200 font-bold text-xl mb-2 cursor-pointer transition-all hover:text-orange-400"
+                style={{
+                  textShadow: "0 0 10px rgba(255, 107, 0, 0)"
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.textShadow = "0 0 20px #ff6b00, 0 0 30px #ff0000";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.textShadow = "0 0 10px rgba(255, 107, 0, 0)";
+                }}
+              >
+                🎉 WEEKEND! 🎉
+              </motion.div>
+            </div>
+          </motion.div>
+        )}
       </div>
 
     </motion.div>

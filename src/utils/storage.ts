@@ -1,4 +1,5 @@
 import { DailyData, WeeklyData, Statistics } from '../types';
+import { databaseService } from '../services/database';
 
 const STORAGE_PREFIX = 'daily_addicts_';
 const DAILY_DATA_KEY = 'daily_data';
@@ -17,8 +18,8 @@ export const getCurrentWeek = (): string => {
 
 export const saveDailyData = async (data: DailyData): Promise<void> => {
   try {
-    const key = `${STORAGE_PREFIX}${DAILY_DATA_KEY}_${data.date}`;
-    localStorage.setItem(key, JSON.stringify(data));
+    // Save to new database system
+    await databaseService.saveDailyData(data);
     
     // Also save to weekly data
     await updateWeeklyData(data);
@@ -30,9 +31,8 @@ export const saveDailyData = async (data: DailyData): Promise<void> => {
 
 export const loadDailyData = async (date: string): Promise<DailyData | null> => {
   try {
-    const key = `${STORAGE_PREFIX}${DAILY_DATA_KEY}_${date}`;
-    const data = localStorage.getItem(key);
-    return data ? JSON.parse(data) : null;
+    // Load from new database system
+    return await databaseService.loadDailyData(date);
   } catch (error) {
     console.error('Error loading daily data:', error);
     return null;
@@ -42,14 +42,11 @@ export const loadDailyData = async (date: string): Promise<DailyData | null> => 
 export const updateWeeklyData = async (dailyData: DailyData): Promise<void> => {
   try {
     const weekStart = getCurrentWeek();
-    const key = `${STORAGE_PREFIX}${WEEKLY_DATA_KEY}_${weekStart}`;
     
-    let weeklyData: WeeklyData | null = null;
-    const existingData = localStorage.getItem(key);
+    // Load existing weekly data from database
+    let weeklyData = await databaseService.loadWeeklyData(weekStart);
     
-    if (existingData) {
-      weeklyData = JSON.parse(existingData);
-    } else {
+    if (!weeklyData) {
       weeklyData = {
         weekStart,
         weekEnd: new Date(new Date(weekStart).getTime() + 6 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
@@ -60,21 +57,18 @@ export const updateWeeklyData = async (dailyData: DailyData): Promise<void> => {
     }
     
     // Update or add daily data
-    if (weeklyData) {
-      const existingDayIndex = weeklyData.dailyData.findIndex(d => d.date === dailyData.date);
-      if (existingDayIndex >= 0) {
-        weeklyData.dailyData[existingDayIndex] = dailyData;
-      } else {
-        weeklyData.dailyData.push(dailyData);
-      }
-      
-      // Recalculate total points
-      weeklyData.totalPoints = weeklyData.dailyData.reduce((sum, day) => sum + day.batsnackPoints, 0);
+    const existingDayIndex = weeklyData.dailyData.findIndex(d => d.date === dailyData.date);
+    if (existingDayIndex >= 0) {
+      weeklyData.dailyData[existingDayIndex] = dailyData;
+    } else {
+      weeklyData.dailyData.push(dailyData);
     }
     
-    if (weeklyData) {
-      localStorage.setItem(key, JSON.stringify(weeklyData));
-    }
+    // Recalculate total points
+    weeklyData.totalPoints = weeklyData.dailyData.reduce((sum, day) => sum + day.batsnackPoints, 0);
+    
+    // Save updated weekly data
+    await databaseService.saveWeeklyData(weeklyData);
   } catch (error) {
     console.error('Error updating weekly data:', error);
   }
@@ -82,9 +76,7 @@ export const updateWeeklyData = async (dailyData: DailyData): Promise<void> => {
 
 export const loadWeeklyData = async (weekStart: string): Promise<WeeklyData | null> => {
   try {
-    const key = `${STORAGE_PREFIX}${WEEKLY_DATA_KEY}_${weekStart}`;
-    const data = localStorage.getItem(key);
-    return data ? JSON.parse(data) : null;
+    return await databaseService.loadWeeklyData(weekStart);
   } catch (error) {
     console.error('Error loading weekly data:', error);
     return null;
@@ -93,19 +85,7 @@ export const loadWeeklyData = async (weekStart: string): Promise<WeeklyData | nu
 
 export const getAllDailyData = async (): Promise<DailyData[]> => {
   try {
-    const allData: DailyData[] = [];
-    const keys = Object.keys(localStorage).filter(key => 
-      key.startsWith(`${STORAGE_PREFIX}${DAILY_DATA_KEY}_`)
-    );
-    
-    for (const key of keys) {
-      const data = localStorage.getItem(key);
-      if (data) {
-        allData.push(JSON.parse(data));
-      }
-    }
-    
-    return allData.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+    return await databaseService.getAllDailyData();
   } catch (error) {
     console.error('Error loading all daily data:', error);
     return [];
@@ -225,6 +205,25 @@ export const sendEmailExport = async (weekStart: string, email: string): Promise
     window.open(mailtoLink);
   } catch (error) {
     console.error('Error sending email export:', error);
+    throw error;
+  }
+};
+
+// New database sync functions
+export const getSyncStatus = async (): Promise<{ isOnline: boolean; pendingSync: number }> => {
+  try {
+    return await databaseService.getSyncStatus();
+  } catch (error) {
+    console.error('Error getting sync status:', error);
+    return { isOnline: false, pendingSync: 0 };
+  }
+};
+
+export const forceSync = async (): Promise<void> => {
+  try {
+    await databaseService.forceSync();
+  } catch (error) {
+    console.error('Error forcing sync:', error);
     throw error;
   }
 };

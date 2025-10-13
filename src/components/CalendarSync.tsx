@@ -75,13 +75,14 @@ const CalendarSync: React.FC = () => {
       {/* Header */}
       <div className="text-center mb-8">
         <h2 className="text-4xl font-bold text-white mb-4 flex items-center justify-center gap-3">
-          <Calendar className="text-cyan-400" size={40} />
+          <Calendar className="text-blue-400" size={40} />
           SYNCHRONIZACJA KALENDARZA
         </h2>
         <p className="text-lg text-gray-300">
           Automatyczna synchronizacja z kalendarzem systemowym
         </p>
       </div>
+
 
       {/* Sync Status */}
       <div className="card">
@@ -111,7 +112,7 @@ const CalendarSync: React.FC = () => {
               <Clock className="text-yellow-400" size={20} />
               <span className="text-white font-bold">Ostatnia synchronizacja</span>
             </div>
-            <div className="text-2xl font-bold text-cyan-400">
+            <div className="text-2xl font-bold text-blue-400">
               {lastSync ? lastSync.toLocaleTimeString('pl-PL') : 'Nigdy'}
             </div>
             <div className="text-sm text-gray-300 mt-1">

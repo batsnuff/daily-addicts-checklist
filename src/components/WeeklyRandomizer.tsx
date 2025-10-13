@@ -145,7 +145,7 @@ const WeeklyRandomizer: React.FC<WeeklyRandomizerProps> = ({ onScheduleGenerated
             className="space-y-4"
           >
             <div className="text-center mb-4">
-              <h3 className="text-2xl font-bold text-cyan-400 mb-2">
+              <h3 className="text-2xl font-bold text-blue-400 mb-2">
                 🎲 NOWY HARMONOGRAM TYGODNIOWY
               </h3>
               <p className="text-gray-300">

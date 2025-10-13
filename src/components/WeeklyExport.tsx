@@ -147,7 +147,7 @@ const WeeklyExport: React.FC = () => {
         className="card"
       >
         <h2 className="text-3xl font-bold text-white mb-6 text-center flex items-center justify-center gap-3">
-          <Calendar className="text-cyan-400" size={32} />
+          <Calendar className="text-blue-400" size={32} />
           EKSPORT TYGODNIOWY
         </h2>
 
@@ -158,7 +158,7 @@ const WeeklyExport: React.FC = () => {
               <Clock className="text-blue-400" size={20} />
               <span className="text-white font-bold">Czas Amsterdam</span>
             </div>
-            <div className="text-2xl font-bold text-cyan-400">
+            <div className="text-2xl font-bold text-blue-400">
               {currentTime.toLocaleTimeString('pl-PL', { 
                 timeZone: 'Europe/Amsterdam',
                 hour: '2-digit',

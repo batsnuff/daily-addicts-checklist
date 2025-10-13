@@ -13,7 +13,7 @@
 body {
   font-family: 'JetBrains Mono', monospace;
   background: linear-gradient(135deg, #1a1a1a 0%, #2d1b69 50%, #000000 100%);
-  color: #00ff88;
+  color: #477129;
   min-height: 100vh;
   overflow-x: hidden;
 }
@@ -28,27 +28,27 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #1a1a1a;
+  background: #461d1de8;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #00ff88;
-  border-radius: 4px;
+  background: #95d3669e;
+  border-radius: 6px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #00cc6a;
+  background: #1565c0a3;
 }
 
 /* Animations */
 @keyframes glow {
-  0%, 100% { text-shadow: 0 0 5px #00ff88; }
-  50% { text-shadow: 0 0 20px #00ff88, 0 0 30px #00ff88; }
+  0%, 100% { text-shadow: 0 0 5px #477129; }
+  50% { text-shadow: 0 0 20px #477129, 0 0 30px #477129; }
 }
 
 @keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.7; }
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 0.6; }
 }
 
 @keyframes slideIn {
@@ -66,11 +66,11 @@ body {
 }
 
 .pulse-animation {
-  animation: pulse 2s ease-in-out infinite;
+  animation: pulse 2s cubic-bezier(0.445, 0.05, 0.55, 0.95) ease-in-out infinite;
 }
 
 .slide-in {
-  animation: slideIn 0.5s ease-out;
+  animation: slideIn 0.7s ease-out;
 }
 
 .fade-in {
@@ -79,7 +79,7 @@ body {
 
 /* Button styles */
 .btn-primary {
-  background: linear-gradient(45deg, #00ff88, #00cc6a);
+  background: linear-gradient(45deg, #477129, #1565c0a3);
   color: #000;
   border: none;
   padding: 12px 24px;
@@ -97,8 +97,8 @@ body {
 
 .btn-secondary {
   background: rgba(0, 255, 136, 0.1);
-  color: #00ff88;
-  border: 2px solid #00ff88;
+  color: #477129;
+  border: 2px solid #477129;
   padding: 10px 20px;
   border-radius: 8px;
   font-weight: 500;
@@ -132,14 +132,14 @@ body {
   border: 1px solid rgba(0, 255, 136, 0.3);
   border-radius: 8px;
   padding: 12px;
-  color: #00ff88;
+  color: #477129;
   font-family: 'JetBrains Mono', monospace;
   transition: all 0.3s ease;
 }
 
 .input-field:focus {
   outline: none;
-  border-color: #00ff88;
+  border-color: #477129;
   box-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
 }
 
@@ -303,7 +303,7 @@ body {
 /* High DPI displays */
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
   .glow-text {
-    text-shadow: 0 0 8px #00ff88, 0 0 16px #00ff88, 0 0 24px #00ff88;
+    text-shadow: 0 0 8px #477129, 0 0 16px #477129, 0 0 24px #477129;
   }
 }
 

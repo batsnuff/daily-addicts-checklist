@@ -41,7 +41,7 @@ const BatsnackSystem: React.FC<BatsnackSystemProps> = ({ points, onAddPoints }) 
           <Zap className="text-yellow-400" size={32} />
           BATS'NACK SYSTEM
         </h2>
-        <div className="text-4xl font-bold text-cyan-400">
+        <div className="text-4xl font-bold text-blue-400">
           {points}BS[🦇]
         </div>
       </div>

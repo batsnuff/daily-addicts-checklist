@@ -1,6 +1,6 @@
 /* Additional custom styles for Daily Addicts Checklist */
 .glow-effect {
-  text-shadow: 0 0 10px #00ff88, 0 0 20px #00ff88, 0 0 30px #00ff88;
+  text-shadow: 0 0 10px #477129, 0 0 20px #477129, 0 0 30px #477129;
 }
 
 /* Responsive Design */
@@ -146,7 +146,7 @@
   left: 1rem;
   right: 1rem;
   background: linear-gradient(135deg, #1a1a1a 0%, #2d1b69 50%, #000000 100%);
-  border: 2px solid #00ff88;
+  border: 2px solid #477129;
   border-radius: 0.5rem;
   padding: 1rem;
   z-index: 1000;

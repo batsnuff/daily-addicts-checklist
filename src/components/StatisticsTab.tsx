@@ -57,8 +57,8 @@ const StatisticsTab: React.FC = () => {
   // Mock data for point statistics - in real app this would come from storage
   const pointStatistics = {
     earned: [
-      { source: 'Running +1km', points: 3, color: '#00ff88' },
-      { source: 'Creative Work', points: 8, color: '#00cc6a' },
+      { source: 'Running +1km', points: 3, color: '#477129' },
+      { source: 'Creative Work', points: 8, color: '#1565c0a3' },
       { source: 'Miloverse Art', points: 6, color: '#0099ff' },
       { source: 'New Projects', points: 4, color: '#ff6b00' },
       { source: 'Completed Projects', points: 7, color: '#ff00ff' }
@@ -111,7 +111,7 @@ const StatisticsTab: React.FC = () => {
   }
 
   const dailyData = [
-    { name: 'Ukończone', value: statistics.daily.completedTasks, color: '#00ff88' },
+    { name: 'Ukończone', value: statistics.daily.completedTasks, color: '#477129' },
     { name: 'Pozostałe', value: statistics.daily.totalTasks - statistics.daily.completedTasks, color: '#666666' }
   ];
 
@@ -126,7 +126,7 @@ const StatisticsTab: React.FC = () => {
   ];
 
   const pointsData = [
-    { name: 'Zarobione', value: statistics.daily.pointsEarned, color: '#00ff88' },
+    { name: 'Zarobione', value: statistics.daily.pointsEarned, color: '#477129' },
     { name: 'Stracone', value: statistics.daily.pointsLost, color: '#ff4444' }
   ];
 
@@ -139,7 +139,7 @@ const StatisticsTab: React.FC = () => {
       {/* Header */}
       <div className="text-center mb-8">
         <h2 className="text-4xl font-bold text-white mb-4 flex items-center justify-center gap-3">
-          <BarChart3 className="text-cyan-400" size={40} />
+          <BarChart3 className="text-blue-400" size={40} />
           STATYSTYKI
         </h2>
         <p className="text-lg text-gray-300">
@@ -190,7 +190,7 @@ const StatisticsTab: React.FC = () => {
                 <div className="text-gray-300">Ukończone zadania</div>
               </div>
               <div className="card text-center">
-                <div className="text-4xl font-bold text-cyan-400 mb-2">
+                <div className="text-4xl font-bold text-blue-400 mb-2">
                   {statistics.daily.pointsEarned}
                 </div>
                 <div className="text-gray-300">Punkty zarobione</div>
@@ -234,7 +234,7 @@ const StatisticsTab: React.FC = () => {
                     <XAxis dataKey="name" />
                     <YAxis />
                     <Tooltip />
-                    <Bar dataKey="value" fill="#00ff88" />
+                    <Bar dataKey="value" fill="#477129" />
                   </BarChart>
                 </ResponsiveContainer>
               </div>
@@ -280,7 +280,7 @@ const StatisticsTab: React.FC = () => {
                   <XAxis dataKey="name" />
                   <YAxis />
                   <Tooltip />
-                  <Line type="monotone" dataKey="value" stroke="#00ff88" strokeWidth={3} />
+                  <Line type="monotone" dataKey="value" stroke="#477129" strokeWidth={3} />
                 </LineChart>
               </ResponsiveContainer>
             </div>
@@ -304,7 +304,7 @@ const StatisticsTab: React.FC = () => {
                 <div className="text-gray-300">Dni aktywności</div>
               </div>
               <div className="card text-center">
-                <div className="text-4xl font-bold text-cyan-400 mb-2">
+                <div className="text-4xl font-bold text-blue-400 mb-2">
                   {statistics.monthly.averagePoints.toFixed(1)}
                 </div>
                 <div className="text-gray-300">Średnie punkty/dzień</div>
@@ -343,7 +343,7 @@ const StatisticsTab: React.FC = () => {
                 <div className="text-gray-300">Punkty stracone</div>
               </div>
               <div className="card text-center">
-                <div className="text-4xl font-bold text-cyan-400 mb-2">
+                <div className="text-4xl font-bold text-blue-400 mb-2">
                   {netPoints}
                 </div>
                 <div className="text-gray-300">Punkty netto</div>
@@ -424,7 +424,7 @@ const StatisticsTab: React.FC = () => {
                   <XAxis dataKey="day" />
                   <YAxis />
                   <Tooltip />
-                  <Area type="monotone" dataKey="earned" stackId="1" stroke="#00ff88" fill="#00ff88" fillOpacity={0.6} />
+                  <Area type="monotone" dataKey="earned" stackId="1" stroke="#477129" fill="#477129" fillOpacity={0.6} />
                   <Area type="monotone" dataKey="lost" stackId="1" stroke="#ff4444" fill="#ff4444" fillOpacity={0.6} />
                   <Area type="monotone" dataKey="net" stackId="2" stroke="#00ccff" fill="#00ccff" fillOpacity={0.8} />
                 </AreaChart>

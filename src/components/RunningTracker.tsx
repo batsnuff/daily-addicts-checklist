@@ -11,7 +11,7 @@ const getTodaySchedule = () => {
   const today = new Date().getDay();
   const schedules = {
     0: { day: 'Niedziela', distance: '21km', distanceValue: 21, type: 'Półmaraton', color: 'from-red-500 to-red-700' },
-    1: { day: 'Poniedziałek', distance: '5km', distanceValue: 5, type: 'Standard', color: 'from-blue-500 to-blue-700' },
+    1: { day: 'Poniedziałek', distance: '5km', distanceValue: 5, type: 'Standard', color: 'from-blue-400 to-purple-600' },
     2: { day: 'Wtorek', distance: '5km', distanceValue: 5, type: 'Standard', color: 'from-green-500 to-green-700' },
     3: { day: 'Środa', distance: '5km', distanceValue: 5, type: 'Standard', color: 'from-purple-500 to-purple-700' },
     4: { day: 'Czwartek', distance: '5km', distanceValue: 5, type: 'Standard', color: 'from-yellow-500 to-yellow-700' },
@@ -30,7 +30,7 @@ const RunningTracker: React.FC<RunningTrackerProps> = ({ onAddPoints }) => {
   const [currentDistance, setCurrentDistance] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
-  const [showBonus, setShowBonus] = useState(false);
+  const [completionTime, setCompletionTime] = useState<string | null>(null);
 
   const remainingDistance = Math.max(0, targetDistance - currentDistance);
   const progress = (currentDistance / targetDistance) * 100;
@@ -44,9 +44,10 @@ const RunningTracker: React.FC<RunningTrackerProps> = ({ onAddPoints }) => {
   useEffect(() => {
     const savedState = localStorage.getItem('running_state');
     if (savedState) {
-      const { currentDistance, isCompleted, targetDistance: savedTarget } = JSON.parse(savedState);
+      const { currentDistance, isCompleted, targetDistance: savedTarget, completionTime } = JSON.parse(savedState);
       setCurrentDistance(currentDistance || 0);
       setIsCompleted(isCompleted || false);
+      setCompletionTime(completionTime || null);
       if (savedTarget && savedTarget === getTodaySchedule().distanceValue) {
         setTargetDistance(savedTarget);
       }
@@ -59,10 +60,11 @@ const RunningTracker: React.FC<RunningTrackerProps> = ({ onAddPoints }) => {
       currentDistance,
       isCompleted,
       targetDistance,
+      completionTime,
       timestamp: new Date().toISOString()
     };
     localStorage.setItem('running_state', JSON.stringify(runningState));
-  }, [currentDistance, isCompleted, targetDistance]);
+  }, [currentDistance, isCompleted, targetDistance, completionTime]);
 
   useEffect(() => {
     let interval: NodeJS.Timeout;
@@ -74,7 +76,11 @@ const RunningTracker: React.FC<RunningTrackerProps> = ({ onAddPoints }) => {
           if (newDistance >= targetDistance) {
             setIsRunning(false);
             setIsCompleted(true);
-            setShowBonus(true);
+            // Save completion time
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            setCompletionTime(`${hours}:${minutes}`);
             onAddPoints(1); // +1BS for completing the run
             return targetDistance;
           }
@@ -91,7 +97,6 @@ const RunningTracker: React.FC<RunningTrackerProps> = ({ onAddPoints }) => {
   const startRun = () => {
     setIsRunning(true);
     setIsCompleted(false);
-    setShowBonus(false);
   };
 
   const pauseRun = () => {
@@ -102,15 +107,14 @@ const RunningTracker: React.FC<RunningTrackerProps> = ({ onAddPoints }) => {
     setCurrentDistance(0);
     setIsRunning(false);
     setIsCompleted(false);
-    setShowBonus(false);
+    setCompletionTime(null);
     setTargetDistance(getTodaySchedule().distanceValue);
     localStorage.removeItem('running_state');
   };
 
   const addBonusKm = () => {
-    setTargetDistance(prev => prev + 1);
+    setCurrentDistance(prev => prev + 1);
     onAddPoints(1); // +1BS for adding bonus km
-    setShowBonus(false);
   };
 
   return (
@@ -124,7 +128,7 @@ const RunningTracker: React.FC<RunningTrackerProps> = ({ onAddPoints }) => {
       </h2>
       
       <div className="text-center mb-6">
-        <div className="text-lg text-cyan-400 mb-2">
+        <div className="text-lg text-blue-400 mb-2">
           18:30 POWRÓT → 19:15 BIEG (45 min = 5km)
         </div>
         <div className="text-sm text-gray-400">
@@ -134,10 +138,9 @@ const RunningTracker: React.FC<RunningTrackerProps> = ({ onAddPoints }) => {
 
       {/* Weekly Schedule */}
       <div className="mb-6">
-        <h3 className="text-xl font-bold text-white mb-4 text-center">Harmonogram Tygodniowy</h3>
         <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2">
           {[
-            { day: 'Pon', distance: '5km', color: 'from-blue-500 to-blue-700' },
+            { day: 'Pon', distance: '5km', color: 'from-blue-400 to-purple-600' },
             { day: 'Wt', distance: '5km', color: 'from-green-500 to-green-700' },
             { day: 'Śr', distance: '5km', color: 'from-purple-500 to-purple-700' },
             { day: 'Czw', distance: '5km', color: 'from-yellow-500 to-yellow-700' },
@@ -154,18 +157,18 @@ const RunningTracker: React.FC<RunningTrackerProps> = ({ onAddPoints }) => {
                 whileHover={{ scale: 1.05 }}
                 className={`p-3 rounded-lg text-center border-2 ${
                   isToday 
-                    ? 'border-cyan-400 shadow-lg shadow-cyan-400/50 bg-gradient-to-br from-cyan-500/20 to-cyan-700/20' 
+                    ? 'border-blue-400 shadow-lg shadow-blue-400/50 bg-gradient-to-br from-blue-500/20 to-blue-700/20' 
                     : 'border-gray-600'
                 }`}
               >
-                <div className={`text-sm font-bold ${isToday ? 'text-cyan-300' : 'text-gray-300'}`}>
+                <div className={`text-sm font-bold ${isToday ? 'text-blue-300' : 'text-gray-300'}`}>
                   {schedule.day}
                 </div>
-                <div className={`text-xs ${isToday ? 'text-cyan-200' : 'text-gray-400'}`}>
+                <div className={`text-xs ${isToday ? 'text-blue-200' : 'text-gray-400'}`}>
                   {schedule.distance}
                 </div>
                 {isToday && (
-                  <div className="text-xs text-cyan-400 font-bold mt-1">
+                  <div className="text-xs text-blue-400 font-bold mt-1">
                     DZISIAJ
                   </div>
                 )}
@@ -178,14 +181,14 @@ const RunningTracker: React.FC<RunningTrackerProps> = ({ onAddPoints }) => {
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          className={`mt-4 p-4 rounded-lg bg-gradient-to-r ${getTodaySchedule().color} border-2 border-cyan-400 shadow-lg`}
+          className={`mt-4 p-4 rounded-lg bg-gradient-to-r ${getTodaySchedule().color} border-2 border-blue-400 shadow-lg`}
         >
           <div className="text-center">
-            <div className="text-lg font-bold text-white">
-              🦇 {getCurrentDay()} - {getTodaySchedule().type}
-            </div>
-            <div className="text-cyan-200">
-              Cel: {getTodaySchedule().distance} • 19:15
+            <div className="text-blue-200">
+              Cel: {getTodaySchedule().distance}
+              {completionTime && (
+                <span className="ml-2">• Ukończono: {completionTime}</span>
+              )}
             </div>
           </div>
         </motion.div>
@@ -230,7 +233,7 @@ const RunningTracker: React.FC<RunningTrackerProps> = ({ onAddPoints }) => {
         {/* Progress Display */}
         <div className="space-y-4">
           <div className="text-center">
-            <div className="text-4xl font-bold text-cyan-400 mb-2">
+            <div className="text-4xl font-bold text-blue-400 mb-2">
               {currentDistance.toFixed(1)} / {targetDistance} km
             </div>
             <div className="text-lg text-gray-300">
@@ -241,7 +244,8 @@ const RunningTracker: React.FC<RunningTrackerProps> = ({ onAddPoints }) => {
           {/* Progress Bar */}
           <div className="w-full bg-gray-700 rounded-full h-4 overflow-hidden">
             <motion.div
-              className="h-full bg-gradient-to-r from-green-500 to-cyan-500"
+              className="h-full"
+              style={{ backgroundColor: '#2864c652' }}
               initial={{ width: 0 }}
               animate={{ width: `${Math.min(progress, 100)}%` }}
               transition={{ duration: 0.3 }}
@@ -276,26 +280,29 @@ const RunningTracker: React.FC<RunningTrackerProps> = ({ onAddPoints }) => {
             <div className="text-4xl font-bold text-green-400 mb-4 glow-text">
               DID IT!
             </div>
-            <div className="text-xl text-cyan-400 mb-4">
-              +1BS🦇 za ukończenie biegu!
+            <div className="text-xl text-blue-400 mb-4">
+              +1BS🦇 za przekroczenie celu!
             </div>
-            
-            {showBonus && (
-              <motion.button
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={addBonusKm}
-                className="btn-primary text-lg"
-              >
-                <Trophy className="inline mr-2" size={24} />
-                +1km Bonus
-              </motion.button>
-            )}
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Bonus Km Button - Visible after completion */}
+      {isCompleted && (
+        <div className="text-center mt-6">
+          <motion.button
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={addBonusKm}
+            className="btn-primary text-lg"
+          >
+            <Trophy className="inline mr-2" size={24} />
+            +1BS nieoczekiwany nadKilometer
+          </motion.button>
+        </div>
+      )}
     </motion.div>
   );
 };

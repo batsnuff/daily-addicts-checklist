@@ -9,7 +9,7 @@ interface CasinoAnimationProps {
 }
 
 const passionsPills = [
-  { id: 1, name: 'Kodowanie', icon: '💻', color: '#00ff88' },
+  { id: 1, name: 'Kodowanie', icon: '💻', color: '#477129' },
   { id: 2, name: 'Muzyka', icon: '🎵', color: '#ff6b00' },
   { id: 3, name: 'Malarstwo', icon: '🎨', color: '#ff00ff' },
   { id: 4, name: 'Pisanie', icon: '✍️', color: '#00ccff' },
@@ -60,7 +60,7 @@ const CasinoAnimation: React.FC<CasinoAnimationProps> = ({ isOpen, onClose, onCo
 
   const getPillColor = (pillName: string) => {
     const pill = passionsPills.find(p => p.name === pillName);
-    return pill?.color || '#00ff88';
+    return pill?.color || '#477129';
   };
 
   const getPillIcon = (pillName: string) => {
@@ -95,7 +95,7 @@ const CasinoAnimation: React.FC<CasinoAnimationProps> = ({ isOpen, onClose, onCo
           <h2 className="text-3xl font-bold text-white mb-2 glow-text">
             KASYNOWA MASZYNA LOSUJĄCA
           </h2>
-          <p className="text-cyan-300 text-lg">
+          <p className="text-blue-300 text-lg">
             Losowanie Passions Pills na nadchodzący tydzień
           </p>
         </div>

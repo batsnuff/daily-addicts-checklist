@@ -48,21 +48,27 @@ const MorningRoutines: React.FC<MorningRoutinesProps> = ({ tasks, onToggleTask, 
             <motion.div
               key={task.id}
               whileHover={{ scale: 1.02 }}
+              onClick={() => !task.completed && onToggleTask(task.id)}
               className={`bg-gradient-to-r ${getPriorityColor(task.priority)} rounded-lg p-4 border-2 shadow-lg transition-all ${
-                task.completed ? 'opacity-60' : ''
+                task.completed ? 'opacity-60' : 'cursor-pointer'
               }`}
             >
               <div className="flex items-center gap-3">
-                <button
-                  onClick={() => onToggleTask(task.id)}
-                  className="flex-shrink-0 hover:scale-110 transition-transform"
+                <div 
+                  className="flex-shrink-0 cursor-pointer"
+                  onClick={(e) => {
+                    if (task.completed) {
+                      e.stopPropagation();
+                      onToggleTask(task.id);
+                    }
+                  }}
                 >
                   {task.completed ? (
                     <CheckCircle2 className="text-white" size={28} />
                   ) : (
                     <Circle className="text-white" size={28} />
                   )}
-                </button>
+                </div>
 
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-1">
@@ -77,6 +83,18 @@ const MorningRoutines: React.FC<MorningRoutinesProps> = ({ tasks, onToggleTask, 
                   {hasNote && (
                     <div className="text-sm text-gray-200 mt-1">
                       📝 {task.note.length > 50 ? `${task.note.substring(0, 50)}...` : task.note}
+                    </div>
+                  )}
+                  
+                  {task.completed && (
+                    <div className="mt-2" onClick={(e) => e.stopPropagation()}>
+                      <textarea
+                        value={task.note}
+                        onChange={(e) => onUpdateNote(task.id, e.target.value)}
+                        placeholder="Dodaj notatkę o ukończonym zadaniu..."
+                        className="w-full p-2 bg-black bg-opacity-20 border border-white border-opacity-30 rounded text-white placeholder-gray-400 focus:outline-none focus:border-green-400 focus:ring-1 focus:ring-green-400 text-sm"
+                        rows={2}
+                      />
                     </div>
                   )}
                 </div>

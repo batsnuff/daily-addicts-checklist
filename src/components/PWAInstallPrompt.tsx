@@ -104,7 +104,7 @@ const PWAInstallPrompt: React.FC = () => {
               <div>
                 <h3 className="text-lg font-bold text-white">Zainstaluj aplikację</h3>
                 <p className="text-sm text-gray-300">
-                  Dostęp offline • Szybszy dostęp • Powiadomienia
+                  Dostęp offline •  • Powiadomienia i integralność 
                 </p>
               </div>
             </div>

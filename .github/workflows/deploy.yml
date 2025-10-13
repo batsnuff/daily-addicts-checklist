@@ -28,14 +28,7 @@ jobs:
           cache: 'npm'
           
       - name: Install dependencies
-        run: |
-          # Try npm ci first, if it fails, sync and try again
-          if ! npm ci; then
-            echo "npm ci failed, syncing dependencies..."
-            npm install
-            echo "Running npm ci after sync..."
-            npm ci
-          fi
+        run: npm ci
         
       - name: Build
         run: npm run build

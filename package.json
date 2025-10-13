@@ -2,7 +2,7 @@
   "name": "daily-addicts-checklist",
   "version": "1.0.0",
   "description": "Daily Addicts' Checklist - A PWA for tracking daily routines and creative activities",
-  "homepage": "https://batsnuff.github.io/daily-addicts-checklist",
+  "homepage": ".",
   "private": true,
   "dependencies": {
     "@types/node": "^16.18.0",

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { BarChart3, TrendingUp, Clock, CheckCircle, AlertCircle, Zap } from 'lucide-react';
+import { BarChart3, TrendingUp, Clock, CheckCircle, Zap } from 'lucide-react';
 
 interface SaveStatisticsProps {
   isVisible: boolean;
@@ -101,12 +101,12 @@ const SaveStatistics: React.FC<SaveStatisticsProps> = ({ isVisible, onClose }) =
     return Math.round((stats.successfulSaves / stats.totalSaves) * 100);
   };
 
-  const getStatusColor = (value: number, max: number) => {
-    const percentage = (value / max) * 100;
-    if (percentage >= 80) return 'text-green-500';
-    if (percentage >= 60) return 'text-yellow-500';
-    return 'text-red-500';
-  };
+  // const getStatusColor = (value: number, max: number) => {
+  //   const percentage = (value / max) * 100;
+  //   if (percentage >= 80) return 'text-green-500';
+  //   if (percentage >= 60) return 'text-yellow-500';
+  //   return 'text-red-500';
+  // };
 
   return (
     <AnimatePresence>

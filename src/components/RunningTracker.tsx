@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Play, Pause, RotateCcw, Trophy } from 'lucide-react';
 
-const getCurrentDay = () => {
-  const days = ['Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'];
-  return days[new Date().getDay()];
-};
+// const getCurrentDay = () => {
+//   const days = ['Niedziela', 'Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota'];
+//   return days[new Date().getDay()];
+// };
 
 const getTodaySchedule = () => {
   const today = new Date().getDay();

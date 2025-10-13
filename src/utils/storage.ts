@@ -1,9 +1,9 @@
 import { DailyData, WeeklyData, Statistics } from '../types';
 import { databaseService } from '../services/database';
 
-const STORAGE_PREFIX = 'daily_addicts_';
-const DAILY_DATA_KEY = 'daily_data';
-const WEEKLY_DATA_KEY = 'weekly_data';
+// const STORAGE_PREFIX = 'daily_addicts_';
+// const DAILY_DATA_KEY = 'daily_data';
+// const WEEKLY_DATA_KEY = 'weekly_data';
 
 export const getCurrentDate = (): string => {
   return new Date().toISOString().split('T')[0];

@@ -1,20 +1,11 @@
 import { 
-  collection, 
   doc, 
-  getDocs, 
   getDoc, 
   setDoc, 
-  updateDoc, 
-  deleteDoc, 
-  query, 
-  where, 
-  orderBy, 
-  onSnapshot,
-  serverTimestamp,
-  Timestamp
+  serverTimestamp
 } from 'firebase/firestore';
 import { db } from '../config/firebase';
-import { DailyData, WeeklyData, Statistics } from '../types';
+import { DailyData, WeeklyData } from '../types';
 
 // IndexedDB setup for offline storage
 const DB_NAME = 'DailyAddictsDB';

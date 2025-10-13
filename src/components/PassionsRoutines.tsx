@@ -11,14 +11,14 @@ interface PassionsRoutinesProps {
 
 const PassionsRoutines: React.FC<PassionsRoutinesProps> = ({ tasks, onToggleTask, onUpdateNote }) => {
 
-  const getPriorityColor = (priority: string) => {
-    switch (priority) {
-      case 'high': return 'from-red-500 to-red-700 border-red-400';
-      case 'medium': return 'from-yellow-500 to-yellow-700 border-yellow-400';
-      case 'low': return 'from-green-500 to-green-700 border-green-400';
-      default: return 'from-gray-500 to-gray-700 border-gray-400';
-    }
-  };
+  // const getPriorityColor = (priority: string) => {
+  //   switch (priority) {
+  //     case 'high': return 'from-red-500 to-red-700 border-red-400';
+  //     case 'medium': return 'from-yellow-500 to-yellow-700 border-yellow-400';
+  //     case 'low': return 'from-green-500 to-green-700 border-green-400';
+  //     default: return 'from-gray-500 to-gray-700 border-gray-400';
+  //   }
+  // };
 
   const getPriorityIcon = (priority: string) => {
     switch (priority) {

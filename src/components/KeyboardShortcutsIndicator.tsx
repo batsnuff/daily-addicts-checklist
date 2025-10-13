@@ -12,7 +12,7 @@ const KeyboardShortcutsIndicator: React.FC<KeyboardShortcutsIndicatorProps> = ({
   className = '' 
 }) => {
   const [isVisible, setIsVisible] = useState(false);
-  const [showShortcuts, setShowShortcuts] = useState(false);
+  const [, setShowShortcuts] = useState(false);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {

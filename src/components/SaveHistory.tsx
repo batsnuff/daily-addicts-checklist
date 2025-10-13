@@ -34,18 +34,18 @@ const SaveHistory: React.FC<SaveHistoryProps> = ({ isVisible, onClose }) => {
     }
   }, []);
 
-  const addToHistory = (item: Omit<SaveHistoryItem, 'id'>) => {
-    const newItem: SaveHistoryItem = {
-      ...item,
-      id: Date.now().toString()
-    };
+  // const addToHistory = (item: Omit<SaveHistoryItem, 'id'>) => {
+  //   const newItem: SaveHistoryItem = {
+  //     ...item,
+  //     id: Date.now().toString()
+  //   };
     
-    const updatedHistory = [newItem, ...history].slice(0, 50); // Keep only last 50 items
-    setHistory(updatedHistory);
+  //   const updatedHistory = [newItem, ...history].slice(0, 50); // Keep only last 50 items
+  //   setHistory(updatedHistory);
     
-    // Save to localStorage
-    localStorage.setItem('saveHistory', JSON.stringify(updatedHistory));
-  };
+  //   // Save to localStorage
+  //   localStorage.setItem('saveHistory', JSON.stringify(updatedHistory));
+  // };
 
   const clearHistory = () => {
     setHistory([]);

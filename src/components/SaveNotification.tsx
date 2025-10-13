@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Bell, CheckCircle, AlertCircle, Info, X } from 'lucide-react';
+import { CheckCircle, AlertCircle, Info, X } from 'lucide-react';
 
 interface SaveNotificationProps {
   isVisible: boolean;
@@ -23,7 +23,7 @@ const SaveNotification: React.FC<SaveNotificationProps> = ({
   onAction,
   actionText
 }) => {
-  const [isClosing, setIsClosing] = useState(false);
+  const [, setIsClosing] = useState(false);
 
   useEffect(() => {
     if (isVisible && duration > 0) {

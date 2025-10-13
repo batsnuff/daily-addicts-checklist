@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Settings, Save, Clock, Zap, Shield, Cloud } from 'lucide-react';
+import { Settings, Save, Clock, Zap, Cloud } from 'lucide-react';
 
 interface SaveSettingsProps {
   isVisible: boolean;

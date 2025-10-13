@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Database, Cloud, HardDrive, Settings, RefreshCw, Trash2, Download, Upload } from 'lucide-react';
+import { Database, Cloud, HardDrive, Settings, RefreshCw, Trash2, Download } from 'lucide-react';
 import { getSyncStatus, forceSync, getAllDailyData, exportWeeklyData } from '../utils/storage';
 
 const DatabaseSettings: React.FC = () => {

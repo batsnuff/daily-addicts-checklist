@@ -225,10 +225,10 @@ const SaveStatusAnalytics: React.FC<SaveStatusAnalyticsProps> = ({
     return `${(bytes / (1024 * 1024 * 1024)).toFixed(1)} GB`;
   };
 
-  const getSuccessRate = () => {
-    if (analyticsData.totalSaves === 0) return 0;
-    return Math.round((analyticsData.successfulSaves / analyticsData.totalSaves) * 100);
-  };
+  // const getSuccessRate = () => {
+  //   if (analyticsData.totalSaves === 0) return 0;
+  //   return Math.round((analyticsData.successfulSaves / analyticsData.totalSaves) * 100);
+  // };
 
   const formatLastSaveTime = (date: Date) => {
     const now = new Date();

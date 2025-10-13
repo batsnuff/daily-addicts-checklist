@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Save, CheckCircle, AlertCircle, Loader2, Wifi, WifiOff } from 'lucide-react';
 
 interface SaveStatusBadgeProps {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { BarChart3, TrendingUp, Clock, CheckCircle, AlertCircle, Zap, Wifi, WifiOff } from 'lucide-react';
+import { BarChart3, TrendingUp, Clock, CheckCircle, Zap, Wifi, WifiOff } from 'lucide-react';
 
 interface SaveStatusSummaryProps {
   isVisible: boolean;

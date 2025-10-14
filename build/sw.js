@@ -4,10 +4,9 @@ const DYNAMIC_CACHE = 'dynamic-v2';
 
 const urlsToCache = [
   '/',
-  '/static/js/bundle.js',
-  '/static/css/main.css',
   '/manifest.json',
-  '/favicon.ico'
+  '/icon.svg',
+  '/index.html'
 ];
 
 // Install event - cache static assets
@@ -107,8 +106,8 @@ self.addEventListener('push', (event) => {
   
   const options = {
     body: event.data ? event.data.text() : 'Nowe powiadomienie z Daily Addicts',
-    icon: '/favicon.ico',
-    badge: '/favicon.ico',
+    icon: '/icon.svg',
+    badge: '/icon.svg',
     vibrate: [100, 50, 100],
     data: {
       dateOfArrival: Date.now(),
@@ -118,12 +117,12 @@ self.addEventListener('push', (event) => {
       {
         action: 'explore',
         title: 'Otwórz aplikację',
-        icon: '/favicon.ico'
+        icon: '/icon.svg'
       },
       {
         action: 'close',
         title: 'Zamknij',
-        icon: '/favicon.ico'
+        icon: '/icon.svg'
       }
     ]
   };

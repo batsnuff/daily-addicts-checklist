@@ -1,80 +1,74 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Icon Creator</title>
+    <title>Create PWA Icons</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .icon-preview { display: inline-block; margin: 10px; text-align: center; }
+        canvas { border: 1px solid #ccc; margin: 5px; }
+        button { padding: 10px 20px; margin: 10px; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; }
+    </style>
 </head>
 <body>
-    <canvas id="canvas" width="512" height="512" style="border: 1px solid #ccc;"></canvas>
-    <br>
-    <button onclick="createIcons()">Create Icons</button>
-    <div id="downloads"></div>
-
+    <h1>PWA Icon Generator</h1>
+    <p>Click the button to generate PWA icons from the SVG</p>
+    
+    <button onclick="generateIcons()">Generate Icons</button>
+    
+    <div id="previews"></div>
+    
     <script>
-        function createIcons() {
-            const canvas = document.getElementById('canvas');
-            const ctx = canvas.getContext('2d');
+        function generateIcons() {
+            const sizes = [192, 512];
+            const previews = document.getElementById('previews');
+            previews.innerHTML = '';
             
-            // Background gradient
-            const gradient = ctx.createLinearGradient(0, 0, 512, 512);
-            gradient.addColorStop(0, '#1a1a1a');
-            gradient.addColorStop(0.5, '#2d1b69');
-            gradient.addColorStop(1, '#000000');
-            
-            ctx.fillStyle = gradient;
-            ctx.fillRect(0, 0, 512, 512);
-            
-            // Add gear emoji (⚙️)
-            ctx.font = '200px Arial';
-            ctx.fillStyle = '#00ff88';
-            ctx.textAlign = 'center';
-            ctx.fillText('⚙️', 256, 320);
-            
-            // Add text
-            ctx.font = 'bold 48px Arial';
-            ctx.fillStyle = '#00ff88';
-            ctx.fillText('DAILY', 256, 400);
-            
-            ctx.font = 'bold 32px Arial';
-            ctx.fillStyle = '#ffffff';
-            ctx.fillText('ADDICTS', 256, 450);
-            
-            // Create different sizes
-            createIcon(512, 'logo512.png');
-            createIcon(192, 'logo192.png');
-            createIcon(64, 'favicon.ico');
+            sizes.forEach(size => {
+                // Create canvas
+                const canvas = document.createElement('canvas');
+                canvas.width = size;
+                canvas.height = size;
+                const ctx = canvas.getContext('2d');
+                
+                // Create a simple icon (bat emoji with background)
+                ctx.fillStyle = '#1a1a1a';
+                ctx.fillRect(0, 0, size, size);
+                
+                ctx.fillStyle = '#00ff88';
+                ctx.font = `${size * 0.6}px Arial`;
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText('🦇', size/2, size/2);
+                
+                // Add border
+                ctx.strokeStyle = '#00ff88';
+                ctx.lineWidth = size * 0.05;
+                ctx.strokeRect(0, 0, size, size);
+                
+                // Create preview
+                const preview = document.createElement('div');
+                preview.className = 'icon-preview';
+                preview.appendChild(canvas);
+                
+                const label = document.createElement('div');
+                label.textContent = `${size}x${size}`;
+                preview.appendChild(label);
+                
+                // Download button
+                const downloadBtn = document.createElement('button');
+                downloadBtn.textContent = 'Download';
+                downloadBtn.onclick = () => downloadCanvas(canvas, `icon-${size}.png`);
+                preview.appendChild(downloadBtn);
+                
+                previews.appendChild(preview);
+            });
         }
         
-        function createIcon(size, filename) {
-            const canvas = document.createElement('canvas');
-            canvas.width = size;
-            canvas.height = size;
-            const ctx = canvas.getContext('2d');
-            
-            // Background
-            const gradient = ctx.createLinearGradient(0, 0, size, size);
-            gradient.addColorStop(0, '#1a1a1a');
-            gradient.addColorStop(0.5, '#2d1b69');
-            gradient.addColorStop(1, '#000000');
-            
-            ctx.fillStyle = gradient;
-            ctx.fillRect(0, 0, size, size);
-            
-            // Icon
-            ctx.font = `${size * 0.4}px Arial`;
-            ctx.fillStyle = '#00ff88';
-            ctx.textAlign = 'center';
-            ctx.fillText('⚙️', size/2, size * 0.6);
-            
-            // Download
-            canvas.toBlob(function(blob) {
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = filename;
-                document.getElementById('downloads').appendChild(a);
-                a.click();
-                URL.revokeObjectURL(url);
-            });
+        function downloadCanvas(canvas, filename) {
+            const link = document.createElement('a');
+            link.download = filename;
+            link.href = canvas.toDataURL();
+            link.click();
         }
     </script>
 </body>

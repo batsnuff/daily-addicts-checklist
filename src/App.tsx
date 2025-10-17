@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import './App.css';
-import { Calendar, TrendingUp, BarChart3, FileText, Download, RotateCcw, Database } from 'lucide-react';
+import { Calendar, TrendingUp, BarChart3, FileText, Download, RotateCcw, Database, Settings } from 'lucide-react';
 import RunningTracker from './components/RunningTracker';
 import MorningRoutines from './components/MorningRoutines';
 import PassionsRoutines from './components/PassionsRoutines';
@@ -41,12 +41,14 @@ import SaveStatusInsights from './components/SaveStatusInsights';
 import SaveErrorHandler from './components/SaveErrorHandler';
 import SaveStatusDropdown from './components/SaveStatusDropdown';
 import PWAInstallPrompt from './components/PWAInstallPrompt';
+import NotificationManager from './components/NotificationManager';
+import CalendarManager from './components/CalendarManager';
 import { Task, DailyData } from './types';
 import { saveDailyData, loadDailyData, getCurrentDate } from './utils/storage';
 import { useKeyboardShortcuts } from './hooks/useKeyboardShortcuts';
 
 const App: React.FC = () => {
-  const [currentView, setCurrentView] = useState<'today' | 'week' | 'notes' | 'statistics' | 'export' | 'calendar' | 'database'>('today');
+  const [currentView, setCurrentView] = useState<'today' | 'week' | 'notes' | 'statistics' | 'export' | 'calendar' | 'database' | 'settings'>('today');
   const [tasks, setTasks] = useState<Task[]>([]);
   const [batsnackPoints, setBatsnackPoints] = useState<number>(0);
   const [dailyData, setDailyData] = useState<DailyData | null>(null);
@@ -651,7 +653,7 @@ const App: React.FC = () => {
 
         {/* Navigation */}
         <div className="mb-8 px-4">
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-2 justify-center">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-8 gap-2 justify-center">
             <button
               onClick={() => setCurrentView('today')}
               className={`px-2 sm:px-4 py-2 rounded-lg font-bold transition-all text-xs sm:text-sm ${
@@ -735,6 +737,18 @@ const App: React.FC = () => {
               <FileText className="inline mr-1" size={14} />
               <span className="hidden sm:inline">NOTATKI</span>
               <span className="sm:hidden">NOTATKI</span>
+            </button>
+            <button
+              onClick={() => setCurrentView('settings')}
+              className={`px-2 sm:px-4 py-2 rounded-lg font-bold transition-all text-xs sm:text-sm ${
+                currentView === 'settings'
+                  ? 'btn-primary'
+                  : 'btn-secondary'
+              }`}
+            >
+              <Settings className="inline mr-1" size={14} />
+              <span className="hidden sm:inline">USTAWIENIA</span>
+              <span className="sm:hidden">USTAWIENIA</span>
             </button>
           </div>
         </div>
@@ -930,6 +944,19 @@ const App: React.FC = () => {
               exit={{ opacity: 0, x: 20 }}
             >
               <DatabaseSettings />
+            </motion.div>
+          )}
+
+          {currentView === 'settings' && (
+            <motion.div
+              key="settings"
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 20 }}
+              className="space-y-6"
+            >
+              <NotificationManager />
+              <CalendarManager />
             </motion.div>
           )}
         </AnimatePresence>
